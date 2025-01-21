@@ -1,0 +1,35 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: soc
+  namespace: default
+spec:
+  version: 8.17.0  # Adjust to your Elasticsearch version
+  nodeSets:
+  # All-Purpose Nodes
+  - name: all-purpose
+    count: 3
+    config:
+      node.roles: ["master", "data_content", "data_hot", "data_warm", "data_cold", "ingest"]
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            requests:
+              cpu: "0.25"  # Request for 1/4 of a CPU
+              memory: "1Gi"  # Request for 1GiB of memory
+            limits:
+              cpu: "1"  # Limit to 1 CPU core
+              memory: "2Gi"  # Limit to 2GiB of memory
+          volumeMounts:
+          - name: elasticsearch-data1  # Mount the volume here
+            mountPath: /usr/share/elasticsearch/data
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data1  # Change the volume name to "elasticsearch-data"
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Gi  # 10GB of storage per node
