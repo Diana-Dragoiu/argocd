@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Diana-Dragoiu/argocd.git
     targetRevision: main
-    path: eck
+    path: /
   destination:
     server: https://kubernetes.default.svc
     namespace: default
