@@ -7,6 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Diana-Dragoiu/argocd.git
+    targetRevision: main
     path: traefik
     helm:
       valueFiles:
