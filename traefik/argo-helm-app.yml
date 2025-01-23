@@ -11,7 +11,7 @@ spec:
     path: traefik
     helm:
       valueFiles:
-      - /traefik/values.yaml   # Path to your values.yaml file
+      - /traefik/traefik-values.yml # Path to your values.yaml file
   destination:
     server: https://kubernetes.default.svc
     namespace: default
